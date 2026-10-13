@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BPT-109 Assignment-1 | Ankita Sinha (1826012)</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #3b82f6;
+      --secondary: #0f766e;
+      --accent: #f59e0b;
+      --dark: #0f172a;
+      --light: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --text-heading: #0f172a;
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      background-color: #f1f5f9;
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Student Header Banner */
+    .header-banner {
+      background: linear-gradient(135deg, #1e3a8a 0%, #0f766e 100%);
+      color: white;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .header-banner h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .header-banner .subtitle {
+      font-size: 1.05rem;
+      opacity: 0.9;
+    }
+
+    .student-badge {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 16px 24px;
+      border-radius: 12px;
+      min-width: 260px;
+    }
+
+    .student-badge div {
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+
+    .student-badge .name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fef08a;
+    }
+
+    /* Question Cards */
+    .card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 28px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border);
+    }
+
+    .card-header {
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
+
+    .card-meta {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-primary { background: #dbeafe; color: #1e40af; }
+    .badge-level { background: #fef3c7; color: #92400e; }
+    .badge-focus { background: #ccfbf1; color: #115e59; }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-heading);
+    }
+
+    /* Infographics & Visual Components */
+    .infographic-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin: 16px 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin: 16px 0;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin: 16px 0;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: 10px;
+      padding: 16px;
+      border-left: 4px solid var(--primary-light);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    }
+
+    .feature-card h4 {
+      color: var(--primary);
+      margin-bottom: 6px;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Generation Timeline Infographic */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin: 20px 0;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .timeline-badge {
+      min-width: 140px;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    .timeline-badge span {
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+
+    .timeline-content {
+      flex: 1;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+    }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      margin: 18px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+      background: white;
+    }
+
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border: 1px solid var(--border);
+    }
+
+    th {
+      background: #f1f5f9;
+      color: var(--text-heading);
+      font-weight: 700;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+
+    /* Diagram Styles */
+    .svg-wrapper {
+      width: 100%;
+      background: white;
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      border: 1px solid var(--border);
+      overflow-x: auto;
+    }
+
+    svg text {
+      font-family: var(--font);
+    }
+
+    /* Highlights & Code */
+    .callout {
+      background-color: #eff6ff;
+      border-left: 4px solid var(--primary-light);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 14px 0;
+    }
+
+    ul, ol {
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: #64748b;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- STUDENT HEADER BANNER -->
+    <header class="header-banner">
+      <div>
+        <h1>BPT-109 Assignment-1</h1>
+        <div class="subtitle">Modules: Unit 1 (Introduction to Computer) & Unit 2 (Input & Output Devices)</div>
+        <div style="margin-top: 6px; font-size: 0.85rem; opacity: 0.8;">Submission Date: 13-Oct-2026</div>
+      </div>
+      <div class="student-badge">
+        <div>Student Name:</div>
+        <div class="name">Ankita Sinha</div>
+        <div>Roll Number: <strong>1826012</strong></div>
+        <div>Status: Submitted</div>
+      </div>
+    </header>
+
+    <!-- QUESTION 1 -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-primary">Question 1</span>
+          <span class="badge badge-level">Remembering (Knowledge)</span>
+          <span class="badge badge-focus">Computer Characteristics & Generations</span>
+        </div>
+        <h2 class="card-title">List four primary characteristics of a modern digital computer and identify the key hardware technology associated with each of the five generations of computers.</h2>
+      </div>
+
+      <h3 style="margin-bottom: 12px; color: var(--primary);">Part A: Four Primary Characteristics of a Modern Digital Computer</h3>
+      <div class="grid-4">
+        <div class="feature-card">
+          <h4>⚡ High Processing Speed</h4>
+          <p>Computers calculate and execute operations at rates measured in nanoseconds and picoseconds (millions of instructions per second - MIPS / Gigaflops).</p>
+        </div>
+        <div class="feature-card">
+          <h4>🎯 Absolute Accuracy</h4>
+          <p>Operates with strict mathematical fidelity following the GIGO (Garbage In, Garbage Out) principle; internal precision is maintained without error.</p>
+        </div>
+        <div class="feature-card">
+          <h4>🔄 High Diligence</h4>
+          <p>Unlike human operators, a digital computer does not suffer from psychological fatigue, boredom, or loss of concentration during repetitive tasks.</p>
+        </div>
+        <div class="feature-card">
+          <h4>🧩 Wide Versatility</h4>
+          <p>Capable of processing diverse tasks concurrently—from mathematical modeling and scientific analysis to multimedia authoring and telecommunications.</p>
+        </div>
+      </div>
+
+      <h3 style="margin: 24px 0 12px; color: var(--primary);">Part B: Five Generations of Computers & Core Hardware Technologies</h3>
+      <div class="infographic-box">
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-badge">
+              <span>1st Gen</span>
+              1940 – 1956
+            </div>
+            <div class="timeline-content">
+              <strong>Key Hardware:</strong> Vacuum Tubes (Thermionic Valves) & Magnetic Drums for memory.<br/>
+              <strong>Attributes:</strong> Massive physical footprint, excessive thermal output, fragile filament mechanics, machine language coded via punch cards.
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-badge" style="background: #2563eb;">
+              <span>2nd Gen</span>
+              1956 – 1963
+            </div>
+            <div class="timeline-content">
+              <strong>Key Hardware:</strong> Solid-State Transistors (Bipolar Junction Transistors) & Magnetic Core memory.<br/>
+              <strong>Attributes:</strong> Drastically reduced physical dimensions, reduced heat, introduction of symbolic Assembly and early High-Level languages (FORTRAN, COBOL).
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-badge" style="background: #0284c7;">
+              <span>3rd Gen</span>
+              1964 – 1971
+            </div>
+            <div class="timeline-content">
+              <strong>Key Hardware:</strong> Integrated Circuits (ICs) incorporating SSI and MSI on single silicon planar substrates.<br/>
+              <strong>Attributes:</strong> Keyboard and monitor user interfaces introduced, early operating system time-sharing implementations.
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-badge" style="background: #0d9488;">
+              <span>4th Gen</span>
+              1971 – Present
+            </div>
+            <div class="timeline-content">
+              <strong>Key Hardware:</strong> VLSI & ULSI Microprocessors (Single-Chip CPUs, e.g., Intel 4004/x86/ARM) & Semiconductor Memory (RAM/ROM).<br/>
+              <strong>Attributes:</strong> Advent of personal desktop computers, networking stacks (LAN, Internet), high computing accessibility and portability.
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-badge" style="background: #7c3aed;">
+              <span>5th Gen</span>
+              Present – Beyond
+            </div>
+            <div class="timeline-content">
+              <strong>Key Hardware:</strong> Ultra-Large-Scale Multi-Core/Heterogeneous SoCs, Quantum Qubits, Neural Processing Units (NPUs), Superconductors.<br/>
+              <strong>Attributes:</strong> Parallel processing, AI-accelerated workflows, voice/vision bio-interfaces, natural language understanding.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUESTION 2 -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-primary">Question 2</span>
+          <span class="badge badge-level">Understanding (Comprehension)</span>
+          <span class="badge badge-focus">Computer Architecture & Block Diagram</span>
+        </div>
+        <h2 class="card-title">Explain the flow of data, instructions, and control signals within the functional block diagram of a computer, detailing the interaction between the CPU, memory unit, and I/O interface.</h2>
+      </div>
+
+      <div class="svg-wrapper">
+        <svg viewBox="0 0 850 420" width="100%" height="420" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background Styling -->
+          <rect width="850" height="420" fill="#f8fafc" rx="12"/>
+          
+          <!-- Input Block -->
+          <rect x="30" y="160" width="120" height="90" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+          <text x="90" y="200" fill="#0369a1" font-weight="bold" font-size="14" text-anchor="middle">Input</text>
+          <text x="90" y="220" fill="#0369a1" font-size="12" text-anchor="middle">Devices</text>
+
+          <!-- CPU Enclosure -->
+          <rect x="200" y="30" width="440" height="230" rx="10" fill="#f1f5f9" stroke="#334155" stroke-dasharray="6,6" stroke-width="2"/>
+          <text x="420" y="55" fill="#1e293b" font-weight="bold" font-size="16" text-anchor="middle">Central Processing Unit (CPU)</text>
+
+          <!-- Inside CPU: CU -->
+          <rect x="220" y="80" width="180" height="70" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+          <text x="310" y="112" fill="#92400e" font-weight="bold" font-size="13" text-anchor="middle">Control Unit (CU)</text>
+          <text x="310" y="132" fill="#b45309" font-size="11" text-anchor="middle">Decodes & Orchestrates</text>
+
+          <!-- Inside CPU: ALU -->
+          <rect x="440" y="80" width="180" height="70" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+          <text x="530" y="112" fill="#991b1b" font-weight="bold" font-size="13" text-anchor="middle">Arithmetic & Logic Unit (ALU)</text>
+          <text x="530" y="132" fill="#b91c1c" font-size="11" text-anchor="middle">Math & Logical Computations</text>
+
+          <!-- Inside CPU: Registers -->
+          <rect x="300" y="180" width="240" height="60" rx="6" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+          <text x="420" y="208" fill="#3730a3" font-weight="bold" font-size="13" text-anchor="middle">Registers (IR, PC, MAR, MDR, ACC)</text>
+          <text x="420" y="226" fill="#4338ca" font-size="11" text-anchor="middle">Ultra-Fast Working Storage</text>
+
+          <!-- Memory Block -->
+          <rect x="290" y="300" width="260" height="90" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+          <text x="420" y="335" fill="#166534" font-weight="bold" font-size="14" text-anchor="middle">Primary Memory</text>
+          <text x="420" y="355" fill="#15803d" font-size="12" text-anchor="middle">(RAM / Cache / ROM)</text>
+          <text x="420" y="375" fill="#15803d" font-size="10" text-anchor="middle">Stores Current Program Code & Active Data</text>
+
+          <!-- Output Block -->
+          <rect x="690" y="160" width="120" height="90" rx="8" fill="#fae8ff" stroke="#a21caf" stroke-width="2"/>
+          <text x="750" y="200" fill="#86198f" font-weight="bold" font-size="14" text-anchor="middle">Output</text>
+          <text x="750" y="220" fill="#86198f" font-size="12" text-anchor="middle">Devices</text>
+
+          <!-- Bus Paths -->
+          <!-- Input to Memory/CPU -->
+          <line x1="150" y1="205" x2="200" y2="205" stroke="#0284c7" stroke-width="3" marker-end="url(#arrow-blue)"/>
+          
+          <!-- CPU to Output -->
+          <line x1="640" y1="205" x2="690" y2="205" stroke="#a21caf" stroke-width="3"/>
+
+          <!-- Memory <-> CPU Bus -->
+          <line x1="380" y1="240" x2="380" y2="300" stroke="#16a34a" stroke-width="3"/>
+          <line x1="460" y1="240" x2="460" y2="300" stroke="#dc2626" stroke-width="3"/>
+
+          <!-- CU Control Signal Bus (Dashed Gold) -->
+          <path d="M 270 150 L 270 330 L 290 330" fill="none" stroke="#d97706" stroke-width="2" stroke-dasharray="4,4"/>
+          <path d="M 400 115 L 440 115" fill="none" stroke="#d97706" stroke-width="2" stroke-dasharray="4,4"/>
+
+          <!-- Legend -->
+          <rect x="660" y="310" width="170" height="90" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+          <text x="670" y="328" font-size="11" font-weight="bold" fill="#334155">Legend / Bus Types:</text>
+          <line x1="670" y1="345" x2="710" y2="345" stroke="#16a34a" stroke-width="2"/>
+          <text x="718" y="348" font-size="10" fill="#475569">Data Bus (Bi-dir)</text>
+          <line x1="670" y1="365" x2="710" y2="365" stroke="#dc2626" stroke-width="2"/>
+          <text x="718" y="368" font-size="10" fill="#475569">Address Bus (Uni-dir)</text>
+          <line x1="670" y1="385" x2="710" y2="385" stroke="#d97706" stroke-width="2" stroke-dasharray="3,3"/>
+          <text x="718" y="388" font-size="10" fill="#475569">Control Signals</text>
+        </svg>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <h4 style="color: var(--primary); margin-bottom: 8px;">Detailed Functional Interaction:</h4>
+        <ol>
+          <li><strong>Instruction Fetch (PC & MAR):</strong> The Program Counter (PC) presents the memory address of the next sequential machine instruction via the Address Bus into the Memory Address Register (MAR).</li>
+          <li><strong>Instruction Read & Decode:</strong> The Control Unit triggers a memory READ signal. The instruction word passes across the Data Bus into the Memory Data Register (MDR), then into the Instruction Register (IR), where the CU breaks down opcodes and operands.</li>
+          <li><strong>Execution & Arithmetic Operations:</strong> When mathematical or Boolean evaluations are required, the CU directs operands from primary memory or data registers to the ALU. Results return to the Accumulator (ACC) or destination registers.</li>
+          <li><strong>I/O Interface Subsystem:</strong> Input/Output operations bypass raw memory locks via dedicated I/O controllers or Direct Memory Access (DMA) controllers. The CPU sends device command signals, allowing external peripherals to read or stream data without consuming processor execution cycles.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- QUESTION 3 -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-primary">Question 3</span>
+          <span class="badge badge-level">Applying (Application)</span>
+          <span class="badge badge-focus">Campus Hardware Deployment</span>
+        </div>
+        <h2 class="card-title">Demonstrate how optical data scanning devices (e.g., barcode/OMR scanners) and electronic card readers (e.g., RFID/smart card readers) can be deployed in a campus environment to automate student attendance and library checkouts.</h2>
+      </div>
+
+      <div class="grid-2">
+        <div class="infographic-box">
+          <h3 style="color: var(--secondary); margin-bottom: 12px;">Scenario A: Automated Attendance System</h3>
+          <p><strong>Hardware Architecture:</strong> UHF RFID Transceivers at lecture hall entrance gates paired with Desktop Optical OMR Scanners for bulk assessment evaluation.</p>
+          <ul style="margin-top: 10px;">
+            <li><strong>Entry Authentication:</strong> As students pass through entrance turnstiles, integrated RFID reader antennas capture passive UHF tags embedded inside student ID cards (ISO/IEC 14443 or ISO 18000-6C) within a 1.5-meter reading envelope.</li>
+            <li><strong>Collision Resolution:</strong> Anti-collision algorithms process simultaneous transmissions from multiple student badges during peak rush periods.</li>
+            <li><strong>Automated Logging:</strong> Unique UID payloads transmit to campus edge servers, checking against registered class rosters to mark timestamped attendance.</li>
+            <li><strong>Exam Validation:</strong> High-throughput Optical Mark Recognition (OMR) scanners process objective examination sheets by sensing pencil carbon reflectance values.</li>
+          </ul>
+        </div>
+
+        <div class="infographic-box">
+          <h3 style="color: var(--primary); margin-bottom: 12px;">Scenario B: Self-Service Library Checkout</h3>
+          <p><strong>Hardware Architecture:</strong> Dual-band HF/NFC Contactless Smart Card Readers + Linear CCD/Laser Barcode Readers + EM Security Gates.</p>
+          <ul style="margin-top: 10px;">
+            <li><strong>Patron Identification:</strong> Students present smart ID cards to near-field RFID reader terminals (13.56 MHz Mifare/DESFire), retrieving student account statuses via encrypted mutual authentication handshakes.</li>
+            <li><strong>Item Acquisition:</strong> Books equipped with dual 1D/2D Barcodes and Book RFID Inlays are scanned over multi-directional barcode checkout surfaces.</li>
+            <li><strong>Real-time State Update:</strong> The integrated Integrated Library System (ILS) database binds item accession numbers with the student's identity.</li>
+            <li><strong>EAS Gate Control:</strong> The station clears the Electronic Article Surveillance (EAS) security bit on book RFID tags to prevent alarms when leaving exit gates.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Evaluation Parameter</th>
+              <th>Optical Barcode Scanner</th>
+              <th>Optical Mark Reader (OMR)</th>
+              <th>RFID / Smart Card Reader</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Line-of-Sight Dependency</strong></td>
+              <td>Mandatory (Direct optical beam on barcode)</td>
+              <td>Mandatory (Precise mechanical sheet feed)</td>
+              <td>Not Required (Radio propagation through non-metal materials)</td>
+            </tr>
+            <tr>
+              <td><strong>Throughput / Concurrency</strong></td>
+              <td>Single item scan per operation</td>
+              <td>Batch sheet scanner (up to 4,000 sheets/hour)</td>
+              <td>Simultaneous multi-tag capture (anti-collision)</td>
+            </tr>
+            <tr>
+              <td><strong>Tag/Media Durability</strong></td>
+              <td>Can fail if smudged, torn, or occluded</td>
+              <td>Prone to surface folds, misalignment</td>
+              <td>High (Sealed silicon IC, water- & dust-resistant)</td>
+            </tr>
+            <tr>
+              <td><strong>Campus Role</strong></td>
+              <td>Book accession identification</td>
+              <td>Summative examinations & feedback tallying</td>
+              <td>Gate attendance, payments, turnstile authentication</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- QUESTION 4 -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-primary">Question 4</span>
+          <span class="badge badge-level">Analyzing (Analysis)</span>
+          <span class="badge badge-focus">Computer Languages Comparative Breakdown</span>
+        </div>
+        <h2 class="card-title">Distinguish between low-level languages (Machine and Assembly) and high-level languages in terms of execution speed, hardware dependence, translation requirements, and programming complexity.</h2>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Language Tier</th>
+              <th>Execution Speed</th>
+              <th>Hardware Dependence</th>
+              <th>Translation Requirements</th>
+              <th>Programming Complexity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Machine Language</strong><br/>(1st Generation)</td>
+              <td><strong>Fastest</strong><br/>Executes immediately without runtime overhead; instructions reside directly in native binary format (<code>0s</code> & <code>1s</code>).</td>
+              <td><strong>Complete Machine Dependence</strong><br/>Hardwired to the microarchitecture instruction set architecture (ISA) of a specific processor. Non-portable.</td>
+              <td><strong>Zero Translation Needed</strong><br/>Understood directly by instruction decoder pipelines and logic gates.</td>
+              <td><strong>Maximum Complexity</strong><br/>Requires manually calculating register allocation, memory locations, and binary opcode assignments. Prone to human error.</td>
+            </tr>
+            <tr>
+              <td><strong>Assembly Language</strong><br/>(2nd Generation)</td>
+              <td><strong>Near-Native Speed</strong><br/>Executes close to hardware speed with minimal operational latency.</td>
+              <td><strong>Architecture Dependent</strong><br/>Specific to processor families (x86, ARM, RISC-V); depends on hardware register structures.</td>
+              <td><strong>Assembler Required</strong><br/>Symbolic mnemonics (e.g., <code>MOV</code>, <code>ADD</code>, <code>JMP</code>) must be mapped 1:1 into binary machine words.</td>
+              <td><strong>High Complexity</strong><br/>Demands detailed hardware knowledge, manual memory management, and extensive register accounting.</td>
+            </tr>
+            <tr>
+              <td><strong>High-Level Languages</strong><br/>(3rd–5th Gen: C, Python, Java)</td>
+              <td><strong>Moderate to Slower</strong><br/>Dependent on compiler optimization overhead, bytecode virtual machines, or runtime interpreters.</td>
+              <td><strong>Hardware Independent</strong><br/>Abstracted away from underlying hardware architecture; programs run cross-platform without rewrites.</td>
+              <td><strong>Compilers or Interpreters</strong><br/>Complex multi-pass language translators required (Lexical analysis, syntax trees, optimization, code generation).</td>
+              <td><strong>Lower Complexity</strong><br/>Human-readable syntax, structured paradigms, automated memory recycling (garbage collection), and rich libraries.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- QUESTION 5 -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-primary">Question 5</span>
+          <span class="badge badge-level">Analyzing (Analysis)</span>
+          <span class="badge badge-focus">Coordinate Tracking & Precision Mechanisms</span>
+        </div>
+        <h2 class="card-title">Compare point-and-draw devices (such as a mouse and trackball) with graphics digitizers/drawing tablets, highlighting how their coordinate tracking mechanisms and pressure sensitivity differ for CAD and digital art applications.</h2>
+      </div>
+
+      <div class="grid-2">
+        <div class="feature-card" style="border-left-color: #0284c7;">
+          <h3>Point-and-Draw Devices (Mouse / Trackball)</h3>
+          <p style="margin-top: 8px;"><strong>Coordinate Tracking: Relative Positioning ($\Delta X, \Delta Y$)</strong></p>
+          <p>Optical mice and trackballs deploy low-resolution optoelectronic image sensors that read microscopic surface features at high frame rates. Displacement is reported as directional offsets:</p>
+          <div class="callout">
+            $$\vec{P}_{new} = \vec{P}_{current} + (\Delta x, \Delta y)$$
+            <em>Moving the device transmits displacement values rather than exact positions on the screen. Lifting and replacing the mouse does not move the screen cursor.</em>
+          </div>
+          <p><strong>Pressure Sensitivity:</strong> Binary/Static. Mouse buttons offer two distinct states: open (0) or closed (1), without measuring continuous contact force.</p>
+        </div>
+
+        <div class="feature-card" style="border-left-color: #7c3aed;">
+          <h3>Graphics Digitizers / Stylus Tablets</h3>
+          <p style="margin-top: 8px;"><strong>Coordinate Tracking: Absolute Positioning ($X, Y, Z$)</strong></p>
+          <p>Digitizers utilize planar <strong>Electromagnetic Resonance (EMR)</strong> or active electrostatic sensor grids beneath the tablet surface:</p>
+          <div class="callout">
+            $$(X_{screen}, Y_{screen}) = f(X_{tablet}, Y_{tablet})$$
+            <em>Tablet surface coordinates map 1:1 onto display screen space. Placing the stylus at the top-right tablet corner snaps the cursor directly to the top-right display edge.</em>
+          </div>
+          <p><strong>Pressure Sensitivity:</strong> High-resolution continuous force curves ranging from <strong>4,096 to 8,192 distinct pressure levels</strong>, alongside stylus tilt angle reporting ($\pm 60^{\circ}$) and azimuth rotation tracking.</p>
+        </div>
+      </div>
+
+      <div class="infographic-box" style="margin-top: 20px;">
+        <h4 style="color: var(--dark); margin-bottom: 10px;">Application Domain Assessment: CAD vs. Digital Illustration</h4>
+        <div class="grid-2">
+          <div>
+            <strong>Computer-Aided Design (CAD):</strong>
+            <p>CAD drafting emphasizes point-to-point vector selection, snaps, constrained dimensioning, and parametric coordinate entries. While absolute digitizers are used for tracing legacy blueprints, standard optical mice with discrete mechanical scroll-wheels remain the industry standard for micro-step zoom and viewport navigation.</p>
+          </div>
+          <div>
+            <strong>Digital Painting & Concept Art:</strong>
+            <p>Freeform raster illustration relies heavily on fine physical motor control. Digitizer pressure-sensitivity dynamically modulates brush parameters including line weight, opacity, color mixing, and stroke falloff. Relative-coordinate mice lack this expressive control, yielding rigid, flat digital lines.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUESTION 6 -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-primary">Question 6</span>
+          <span class="badge badge-level">Evaluating (Evaluation)</span>
+          <span class="badge badge-focus">Specialized Output Systems Assessment</span>
+        </div>
+        <h2 class="card-title">Assess whether a drum/flatbed plotter or an ultra-high-definition monitor and large-format printer combination is superior for producing civil engineering blueprints, justifying your selection based on line resolution, scalability, and long-term production costs.</h2>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Evaluation Parameter</th>
+              <th>Pen / Drum Plotters (Vector-Driven)</th>
+              <th>UHD Monitor + Large-Format Inkjet/LED Printer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Line Resolution & Rendering</strong></td>
+              <td>Native continuous vector strokes without pixelation. Restricted to single-color pen cartridges; cannot render complex raster overlays, aerial surveys, or point clouds.</td>
+              <td><strong>Superior (Up to 2400 &times; 1200 Optimized DPI):</strong> Micro-piezo printheads produce sharp line drawings (down to 0.02 mm widths), high-density text, and full-color GIS topographical maps.</td>
+            </tr>
+            <tr>
+              <td><strong>Scalability & Speed</strong></td>
+              <td><strong>Slow Scalability:</strong> Mechanical pens physically trace every line segment sequentially. Plotting complex multi-layer designs can take hours per sheet.</td>
+              <td><strong>High Production Scalability:</strong> High-speed carriage passes output full Architectural D/E/A0 plan sheets in 20–35 seconds, streamlining batch printing runs.</td>
+            </tr>
+            <tr>
+              <td><strong>Long-term Production Costs</strong></td>
+              <td>Lower ink usage, but high pen wear, limited parts availability, and frequent mechanical failures drive up long-term maintenance costs.</td>
+              <td>Low cost per square foot through bulk pigment ink systems, standard engineering bond paper, and shared network workgroup use.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout" style="border-left-color: #059669; background: #ecfdf5;">
+        <h4 style="color: #065f46; margin-bottom: 6px;">Evaluation Verdict & Justification:</h4>
+        <p>The <strong>UHD Monitor (4K/8K) paired with a Large-Format Pigment/LED Printer</strong> is the superior infrastructure choice for modern civil engineering drafting. UHD displays allow engineers to inspect fine vector line weights, structural intersections, and thermal maps prior to output, minimizing test prints. Once verified, wide-format printers output both intricate line drawings and photorealistic satellite layers across standard engineering bond papers quickly and cost-effectively, outperforming traditional pen plotters.</p>
+      </div>
+    </section>
+
+    <!-- QUESTION 7 -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-primary">Question 7</span>
+          <span class="badge badge-level">Evaluating (Evaluation)</span>
+          <span class="badge badge-focus">Biometric Sensory Reliability Under Adverse Conditions</span>
+        </div>
+        <h2 class="card-title">Critique the operational reliability and security vulnerabilities of vision-input devices (facial recognition) compared to voice recognition devices when deployed as primary biometric authentication tools in high-ambient-noise, publicly exposed environments.</h2>
+      </div>
+
+      <div class="grid-2">
+        <!-- Vision System -->
+        <div class="feature-card" style="border-left-color: #0284c7;">
+          <h3 style="color: #0369a1; margin-bottom: 10px;">Vision-Input (Facial Recognition)</h3>
+          <p><strong>Operational Reliability: High (Immune to Acoustics)</strong></p>
+          <ul>
+            <li>Acoustic noise levels do not impair optical CMOS sensors.</li>
+            <li>Adverse optical variables include bright sunlight (sensor blinding), nighttime shadows, and physical occlusions (sunglasses, medical masks).</li>
+            <li>Modern 3D structured light and Near-Infrared (NIR) illumination project thousands of invisible dots, maintaining reliable recognition in low-light environments.</li>
+          </ul>
+          <p style="margin-top: 10px;"><strong>Vulnerabilities & Attack Vectors:</strong></p>
+          <ul>
+            <li>Presentation Attacks: High-resolution printed photographs or 4K digital screen replays (mitigated by liveness detection and micro-texture tracking).</li>
+            <li>Adversarial physical patches and optical IR-scattering eyewear designed to fool biometric classifiers.</li>
+          </ul>
+        </div>
+
+        <!-- Voice System -->
+        <div class="feature-card" style="border-left-color: #dc2626;">
+          <h3 style="color: #b91c1c; margin-bottom: 10px;">Voice Recognition Systems</h3>
+          <p><strong>Operational Reliability: Severely Degraded</strong></p>
+          <ul>
+            <li>High ambient noise (traffic, crowds, machinery) floods input microphones, sharply degrading the Signal-to-Noise Ratio (SNR).</li>
+            <li>Environmental reverberation interferes with vocal formants, pitch curves, and phoneme boundaries, causing false rejections.</li>
+            <li>Human vocal tract changes (laryngitis, physical stress, seasonal colds) alter voice acoustics, impacting reliability.</li>
+          </ul>
+          <p style="margin-top: 10px;"><strong>Vulnerabilities & Attack Vectors:</strong></p>
+          <ul>
+            <li>Eavesdropping: Secretly recorded operational passphrases replayed into input microphones.</li>
+            <li>AI-driven zero-shot voice cloning and deepfake audio generation mimic vocal profiles using minimal audio samples.</li>
+            <li>Public privacy concerns: Speaking credentials aloud exposes identities to bystanders.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout" style="border-left-color: #d97706; background: #fffbeb;">
+        <strong>Critical Finding:</strong> In public settings with high ambient noise, <strong>vision-input biometric architectures (utilizing active 3D NIR/LiDAR)</strong> provide higher uptime and security. Voice biometrics remain vulnerable to background noise degradation, replay spoofing, and lack of vocal privacy.
+      </div>
+    </section>
+
+    <!-- QUESTION 8 -->
+    <section class="card">
+      <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-primary">Question 8</span>
+          <span class="badge badge-level">Creating (Synthesis)</span>
+          <span class="badge badge-focus">Assistive Technology & Accessible Workstation Design</span>
+        </div>
+        <h2 class="card-title">Design an accessible, hands-free computer workstation tailored for a visually impaired user. Propose a coherent integration of non-visual input devices (such as voice recognition systems and tactile keyboards) with specialized output devices (such as voice response synthesizers and screen readers).</h2>
+      </div>
+
+      <!-- WORKSTATION ARCHITECTURE INFOGRAPHIC -->
+      <div class="svg-wrapper">
+        <svg viewBox="0 0 900 380" width="100%" height="380" xmlns="http://www.w3.org/2000/svg">
+          <rect width="900" height="380" fill="#f8fafc" rx="12"/>
+          
+          <!-- Central Hub -->
+          <rect x="330" y="110" width="240" height="160" rx="10" fill="#1e3a8a" stroke="#1e40af" stroke-width="2"/>
+          <text x="450" y="150" fill="#ffffff" font-weight="bold" font-size="16" text-anchor="middle">Central Processing Hub</text>
+          <text x="450" y="175" fill="#93c5fd" font-size="12" text-anchor="middle">& Assistive Integration Broker</text>
+          <rect x="350" y="195" width="200" height="55" rx="6" fill="#1e40af"/>
+          <text x="450" y="218" fill="#fef08a" font-weight="bold" font-size="11" text-anchor="middle">NVDA / JAWS Core Engine</text>
+          <text x="450" y="236" fill="#ffffff" font-size="10" text-anchor="middle">Speech API & Braille Translation Tables</text>
+
+          <!-- Input Group Left -->
+          <rect x="30" y="40" width="230" height="300" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+          <text x="145" y="70" fill="#0369a1" font-weight="bold" font-size="14" text-anchor="middle">Input Systems</text>
+          
+          <rect x="45" y="90" width="200" height="65" rx="6" fill="#f0f9ff" stroke="#0ea5e9"/>
+          <text x="145" y="112" font-size="12" font-weight="bold" fill="#0284c7" text-anchor="middle">Voice Command Engine</text>
+          <text x="145" y="130" font-size="10" fill="#475569" text-anchor="middle">Far-Field 4-Mic Beamforming Array</text>
+          <text x="145" y="144" font-size="9" fill="#64748b" text-anchor="middle">Continuous Dictation & Command Macros</text>
+
+          <rect x="45" y="170" width="200" height="65" rx="6" fill="#f0fdf4" stroke="#22c55e"/>
+          <text x="145" y="192" font-size="12" font-weight="bold" fill="#16a34a" text-anchor="middle">Tactile / Haptic Inputs</text>
+          <text x="145" y="210" font-size="10" fill="#475569" text-anchor="middle">High-Contrast Braille Keyboard</text>
+          <text x="145" y="224" font-size="9" fill="#64748b" text-anchor="middle">Perkins Layout + Textured Keycaps</text>
+
+          <rect x="45" y="250" width="200" height="65" rx="6" fill="#fefce8" stroke="#eab308"/>
+          <text x="145" y="272" font-size="12" font-weight="bold" fill="#ca8a04" text-anchor="middle">Hands-Free Modifiers</text>
+          <text x="145" y="290" font-size="10" fill="#475569" text-anchor="middle">Dual-Pedal USB Foot Controls</text>
+          <text x="145" y="304" font-size="9" fill="#64748b" text-anchor="middle">PTT Toggle & Command Mode Triggers</text>
+
+          <!-- Output Group Right -->
+          <rect x="640" y="40" width="230" height="300" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+          <text x="755" y="70" fill="#7c3aed" font-weight="bold" font-size="14" text-anchor="middle">Non-Visual Output Systems</text>
+
+          <rect x="655" y="90" width="200" height="65" rx="6" fill="#faf5ff" stroke="#a855f7"/>
+          <text x="755" y="112" font-size="12" font-weight="bold" fill="#9333ea" text-anchor="middle">Speech Synthesizer</text>
+          <text x="755" y="130" font-size="10" fill="#475569" text-anchor="middle">Neural TTS Engine (Natural Pitch)</text>
+          <text x="755" y="144" font-size="9" fill="#64748b" text-anchor="middle">Delivered via Bone-Conduction Audio</text>
+
+          <rect x="655" y="170" width="200" height="65" rx="6" fill="#ecfdf5" stroke="#10b981"/>
+          <text x="755" y="192" font-size="12" font-weight="bold" fill="#059669" text-anchor="middle">Tactile Braille Output</text>
+          <text x="755" y="210" font-size="10" fill="#475569" text-anchor="middle">Refreshable 80-Cell Display</text>
+          <text x="755" y="224" font-size="9" fill="#64748b" text-anchor="middle">Piezoelectric Pins (Grade 2 Braille)</text>
+
+          <rect x="655" y="250" width="200" height="65" rx="6" fill="#fff7ed" stroke="#f97316"/>
+          <text x="755" y="272" font-size="12" font-weight="bold" fill="#c2410c" text-anchor="middle">Spatial Haptic Array</text>
+          <text x="755" y="290" font-size="10" fill="#475569" text-anchor="middle">Dynamic Surface Actuators</text>
+          <text x="755" y="304" font-size="9" fill="#64748b" text-anchor="middle">Translates Window & Button Layouts</text>
+
+          <!-- Connecting Arrows -->
+          <line x1="245" y1="122" x2="330" y2="150" stroke="#0284c7" stroke-width="2"/>
+          <line x1="245" y1="202" x2="330" y2="190" stroke="#16a34a" stroke-width="2"/>
+          <line x1="245" y1="282" x2="330" y2="230" stroke="#ca8a04" stroke-width="2"/>
+
+          <line x1="570" y1="150" x2="655" y2="122" stroke="#9333ea" stroke-width="2"/>
+          <line x1="570" y1="190" x2="655" y2="202" stroke="#059669" stroke-width="2"/>
+          <line x1="570" y1="230" x2="655" y2="282" stroke="#c2410c" stroke-width="2"/>
+        </svg>
+      </div>
+
+      <div style="margin-top: 24px;">
+        <h3 style="color: var(--primary); margin-bottom: 12px;">Detailed Architectural Integration:</h3>
+        
+        <div class="grid-3">
+          <div class="feature-card">
+            <h4>1. Hands-Free Voice Control</h4>
+            <p>A beamforming desktop microphone array isolates the user's voice from room echoes. Integrated natural language speech recognition processes dual operational layers: continuous text dictation and voice navigation macros (e.g., <em>"Jump to Heading 2"</em>, <em>"Read Table Column 3"</em>).</p>
+          </div>
+          <div class="feature-card">
+            <h4>2. Ergonomic Foot Pedals</h4>
+            <p>Hands-free foot pedals act as physical hotkey modifiers. Pressing the left pedal opens the microphone channel (Push-to-Talk) without voice wake-words. Pressing the right pedal pauses or silences speech synthesizer audio instantly.</p>
+          </div>
+          <div class="feature-card">
+            <h4>3. Bone-Conduction Headphones</h4>
+            <p>Voice screen readers output audio through bone-conduction headsets, transmitting sound via cheekbones directly to the inner ear. This leaves the user's ear canals open to maintain spatial hearing and room awareness.</p>
+          </div>
+        </div>
+
+        <div class="feature-card" style="margin-top: 14px; border-left-color: var(--secondary);">
+          <h4>4. Tactile Verification & Refreshable Braille Subsystem</h4>
+          <p>An 80-cell <strong>Refreshable Braille Display</strong> is positioned beneath the tactile Perkins keyboard. When the screen reader navigates across lines of text, piezoelectric pins rise and fall to display real-time Braille equivalents. This provides immediate proofreading for code syntax, mathematical expressions, and spelling without relying solely on synthesized voice audio.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>BPT-109 Assignment-1 Submission &bull; Prepared by <strong>Ankita Sinha (Roll No: 1826012)</strong> &bull; Academic Year 2026</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
